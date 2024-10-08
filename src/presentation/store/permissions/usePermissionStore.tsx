@@ -1,17 +1,12 @@
 import { create } from "zustand";
 import type { PermissionStatus } from "../../../infractructure/interfaces/permissions";
 import { requestLocationPermission, checkLocationPermission } from '../../../actions/permissions/location';
-
-
-
 interface PermissionsSate {
     locationStatus: PermissionStatus;
-
 
     requestLocationPermission: () => Promise<PermissionStatus>;
     checkLocationPermission: () => Promise<PermissionStatus>;
 }
-
 
 export const usePermissionStore = create<PermissionsSate>()(set => ({
     locationStatus: 'undetermined',
@@ -27,7 +22,5 @@ export const usePermissionStore = create<PermissionsSate>()(set => ({
         set({ locationStatus: status })
         return status;
     }
-
-
 
 }))

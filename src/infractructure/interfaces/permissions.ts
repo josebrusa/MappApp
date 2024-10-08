@@ -1,6 +1,3 @@
-
-
-
 export type PermissionStatus =
     | 'granted'
     | 'denied'
