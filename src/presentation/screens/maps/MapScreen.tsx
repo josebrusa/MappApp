@@ -4,30 +4,42 @@ import { useLocationStore } from '../../store/location/useLocationStore';
 import { LoadingScreen } from '../loading/LoadingScreen';
 import { useEffect } from 'react';
 
+
 export const MapScreen = () => {
 
-    const { lastKnowLocation, getLocation } = useLocationStore();
+  const { lastKnownLocation, getLocation } = useLocationStore();
 
-    if (!lastKnowLocation) return (<LoadingScreen />);
+  useEffect(() => {
+    if ( lastKnownLocation === null ) {
+      getLocation();
+    }
+  }, [])
+  
+ 
 
-    useEffect(() => {
-        if (lastKnowLocation === null) {
-            getLocation();
-        }
-    }, [])
+  if ( lastKnownLocation === null ) {
+    return (<LoadingScreen />)
+  }
 
-    return (
-        <View style={style.container}>
-            <Map
-                initialLocation={lastKnowLocation}
-            />
-        </View>
-    );
+
+  return (
+    <View style={ styles.container}>
+
+
+
+      <Map 
+        initialLocation={ lastKnownLocation }
+      />
+
+
+   </View>
+  )
 }
 
 
-const style = StyleSheet.create({
-    container: {
-        ...StyleSheet.absoluteFillObject,
-    }
-})
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+  },
+
+ });
